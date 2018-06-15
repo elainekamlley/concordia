@@ -45,8 +45,8 @@ This will keep our database in its container for convenience.
 
 Next, set up a Python virtual environment, install pipenv <https://docs.pipenv.org/>, and other Python prerequisites::
 
-    $ python3 -m venv env
-    $ source env/bin/activate
+    $ python3 -m venv .venv
+    $ source .venv/bin/activate
     $ pip3 install pipenv
     $ pipenv install --system --dev --deploy
 
@@ -70,6 +70,14 @@ To generate a model graph, do::
     # python3 ./manage.py graph_models concordia > tx.dot
     # dot -Tsvg tx.dot -o tx.svg
 
+
+Code Quality
+----
+
+Install `black <https://pypi.org/project/black/>` and integrate it with your editor of choice.
+
+Use `flake8 <http://flake8.pycqa.org/en/latest/>` to ensure you don't increase the
+warning count or introduce errors with your commits.
 
 
 config.json

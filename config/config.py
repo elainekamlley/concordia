@@ -3,8 +3,8 @@
 import os
 import json
 
-    
-class Config():
+
+class Config:
     """ Singleton that wraps config.json file.
         Has accessor methods for injection. Can override mode and will read override file.
         Mode can be overridden by setting mode in local file named config-optional-override.json.
@@ -31,8 +31,11 @@ class Config():
             else:
                 # find config.json file
                 found = False
-                for path in [cls.config_file_name, os.path.join(cls.script_dir, cls.config_file_name),
-                             os.path.join(os.getcwd(), cls.config_file_name)]:
+                for path in [
+                    cls.config_file_name,
+                    os.path.join(cls.script_dir, cls.config_file_name),
+                    os.path.join(os.getcwd(), cls.config_file_name),
+                ]:
                     if os.path.exists(path):
                         cls.SetFile(path)
                         found = True
@@ -41,9 +44,13 @@ class Config():
                     raise FileNotFoundError("missing " + cls.config_file_name)
 
         # if mode override file present, read the mode and set mode
-        for path in [cls.config_mode_override_file_name, os.path.join(cls.script_dir, cls.config_mode_override_file_name), os.path.join(os.getcwd(), cls.config_mode_override_file_name)]:
+        for path in [
+            cls.config_mode_override_file_name,
+            os.path.join(cls.script_dir, cls.config_mode_override_file_name),
+            os.path.join(os.getcwd(), cls.config_mode_override_file_name),
+        ]:
             if os.path.exists(path):
-                fi = open(path, 'r')
+                fi = open(path, "r")
                 try:
                     override = json.load(fi)
                     cls.mode = override["mode"]
@@ -77,7 +84,8 @@ class Config():
         :return: value from config.json based on key
         :throws: LookupError when key not found in config.json
         """
-        if not cls.doc: cls.init()
+        if not cls.doc:
+            cls.init()
         if name not in cls.doc[mode]:
             raise LookupError("Missing config key " + name)
         return cls.doc[mode][name]
@@ -100,7 +108,8 @@ class Config():
         :param val: value to set
         :return: None
         """
-        if not cls.doc: cls.init() 
+        if not cls.doc:
+            cls.init()
         cls.doc[cls.mode][name] = val
 
     @classmethod
@@ -117,7 +126,7 @@ class Config():
         """
         if not os.path.exists(path):
             raise FileNotFoundError("missing config file " + path)
-        fi = open(path, 'r')
+        fi = open(path, "r")
         try:
             cls.doc = json.load(fi)
         finally:
@@ -142,4 +151,3 @@ class Config():
         :return: True if key in doc, otherwise False
         """
         return key in cls.doc[cls.mode]
-

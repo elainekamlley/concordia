@@ -9,8 +9,15 @@ import views
 from django.test import Client, TestCase
 from PIL import Image
 
-from concordia.models import (Asset, Collection, MediaType, Status,
-                              Transcription, User, UserProfile)
+from concordia.models import (
+    Asset,
+    Collection,
+    MediaType,
+    Status,
+    Transcription,
+    User,
+    UserProfile,
+)
 
 PACKAGE_PARENT = ".."
 SCRIPT_DIR = os.path.dirname(
@@ -22,7 +29,6 @@ sys.path.append(os.path.join(SCRIPT_DIR, "../../config"))
 
 
 from config import Config
-
 
 
 class ViewTest_Concordia(TestCase):
